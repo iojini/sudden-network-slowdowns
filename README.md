@@ -11,13 +11,6 @@ Management suspects that employees may be using TOR browsers to bypass network s
 - Windows 10 Virtual Machines (Microsoft Azure)
 - EDR Platform: Microsoft Defender for Endpoint
 - Kusto Query Language (KQL)
-- Tor Browser
-
-### High-Level TOR-Related IoC Discovery Plan
-
-- **Check `DeviceFileEvents`** for any `tor(.exe)` or `firefox(.exe)` file events.
-- **Check `DeviceProcessEvents`** for any signs of installation or usage.
-- **Check `DeviceNetworkEvents`** for any signs of outgoing connections over known TOR ports.
 
 ---
 
@@ -91,55 +84,6 @@ DeviceNetworkEvents
 | order by Timestamp desc
 ```
 <img width="3717" height="1465" alt="TOR4" src="https://github.com/user-attachments/assets/2ceeb167-9115-46c7-8b36-26e41da42f92" />
-
----
-
-## Chronological Event Timeline 
-
-### 1. File Download - TOR Installer
-
-- **Timestamp:** `2025-10-04T19:16:45.455884Z`
-- **Event:** The user "labuser" downloaded a file named `tor-browser-windows-x86_64-portable-14.5.7.exe` to the Downloads folder.
-- **Action:** File download detected.
-- **File Path:** `C:\Users\labuser\Downloads\tor-browser-windows-x86_64-portable-14.5.7.exe`
-
-### 2. Process Execution - TOR Browser Installation
-
-- **Timestamp:** `2025-10-04T19:16:45.455884Z`
-- **Event:** The user "labuser" executed the file `tor-browser-windows-x86_64-portable-14.5.7.exe` in silent mode, initiating a background installation of the TOR Browser.
-- **Action:** Process creation detected.
-- **Command:** `tor-browser-windows-x86_64-portable-14.5.7.exe /S`
-- **File Path:** `C:\Users\labuser\Downloads\tor-browser-windows-x86_64-portable-14.5.7.exe`
-
-### 3. Process Execution - TOR Browser Launch
-
-- **Timestamp:** `2025-10-04T19:20:39.986612Z`
-- **Event:** User "labuser" opened the TOR browser. Subsequent processes associated with TOR browser, such as `firefox.exe` and `tor.exe`, were also created, indicating that the browser launched successfully.
-- **Action:** Process creation of TOR browser-related executables detected.
-- **File Path:** `C:\Users\labuser\Desktop\Tor Browser\Browser\TorBrowser\Tor\tor.exe`
-
-### 4. Network Connection - TOR Network
-
-- **Timestamp:** `2025-10-04T19:21:06.684194Z`
-- **Event:** A network connection to IP `51.159.186.85` on port `9001` by user "labuser" was established using `tor.exe`, confirming TOR browser network activity.
-- **Action:** Connection success.
-- **Process:** `tor.exe`
-- **File Path:** `c:\users\labuser\desktop\tor browser\browser\torbrowser\tor\tor.exe`
-
-### 5. Additional Network Connections - TOR Browser Activity
-
-- **Timestamps:**
-  - `2025-10-04T19:21:13.9132048Z` - Local connection to `127.0.0.1` on port `9150`.
-  - `2025-10-04T19:23:47.7895008Z` - Connected to `167.235.183.173` on port `443`.
-- **Event:** Additional TOR network connections were established, indicating ongoing activity by user "labuser" through the TOR browser.
-- **Action:** Multiple successful connections detected.
-
-### 6. File Creation - TOR Shopping List
-
-- **Timestamp:** `2025-10-04T19:49:26.090506Z`
-- **Event:** The user "labuser" created a file named `tor-shopping-list.txt` on the desktop, potentially indicating a list or notes related to their TOR browser activities.
-- **Action:** File creation detected.
-- **File Path:** `C:\Users\labuser\Desktop\tor-shopping-list.txt`
 
 ---
 
