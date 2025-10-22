@@ -1,6 +1,6 @@
 # Threat Hunt Report: Unauthorized TOR Usage
 
-<img width="1024" height="719" alt="port_scanning_II" src="https://github.com/user-attachments/assets/d2c31049-282b-4a50-b3aa-c9d6ef69b491" />
+<img width="1024" height="537" alt="port_scanning_III" src="https://github.com/user-attachments/assets/295f1b74-2cd6-4a3a-bd3b-44335965cec1" />
 
 ##  Scenario
 
