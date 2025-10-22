@@ -4,7 +4,7 @@
 
 ##  Scenario
 
-Management suspects that employees may be using TOR browsers to bypass network security controls, based on the recent detection of unusual encrypted traffic patterns and connections to known TOR entry nodes in network logs. Additionally, anonymous reports indicate employees have been discussing methods to access restricted sites during work hours. This threat hunt aims to detect any TOR browser usage and analyze related security incidents to mitigate potential risks to organizational security and policy compliance.
+The server team noticed a significant network performance degradation on some of the older devices attached to the network in the 10.0.0.0/16 network. After ruling out external DDoS attacks, the security team suspects something might be going on internally. All traffic originating from within the local network is allowed by default by all hosts. There is also unrestricted use of PowerShell and other applications in the environment. It’s possible someone is either downloading large files or doing some kind of port scanning against hosts in the local network.
 - [Scenario Creation](https://github.com/iojini/sudden-network-slowdowns/blob/main/sudden-network-slowdowns-event-creation.md)
 
 ## Platforms and Languages Leveraged
