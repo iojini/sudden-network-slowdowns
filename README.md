@@ -1,6 +1,6 @@
 # Threat Hunt Report: Unauthorized TOR Usage
 
-<img width="400" src="https://github.com/user-attachments/assets/44bac428-01bb-4fe9-9d85-96cba7698bee" alt="Tor Logo with the onion and a crosshair on it"/>
+<img width="1024" height="752" alt="port_scanning" src="https://github.com/user-attachments/assets/122d2c89-a112-45ef-804c-8c9e533d25eb" />
 
 ##  Scenario
 
