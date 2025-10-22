@@ -16,7 +16,7 @@ The server team noticed a significant network performance degradation on some of
 
 ## Steps Taken
 
-### 1. Searched the `DeviceFileEvents` Table
+### 1. Searched the `DeviceNetworkEvents` Table
 
 Searched for any file that had the string "tor" in it and discovered what looks like the user "labuser" downloaded a TOR installer, did something that resulted in many TOR-related files being copied to the desktop, and the creation of a file called `tor-shopping-list.txt` on the desktop at `2025-10-04T19:49:26.090506Z`. These events began at `2025-10-04T19:16:45.455884Z`.
 
@@ -35,7 +35,7 @@ DeviceFileEvents
 
 ---
 
-### 2. Searched the `DeviceProcessEvents` Table
+### 2. Searched the `DeviceNetworkEvents` Table
 
 Searched for any `ProcessCommandLine` that contained the string "tor-browser-windows-x86_64-portable-14.5.7.exe". Based on the logs returned, at `2025-10-04T19:16:45.455884Z`, an employee on the "irene-test-vm-m" device ran the file `tor-browser-windows-x86_64-portable-14.5.7.exe` from their Downloads folder, using a command that triggered a silent installation.
 
@@ -65,25 +65,6 @@ DeviceProcessEvents
 | order by Timestamp desc
 ```
 <img width="3154" height="1534" alt="TOR3" src="https://github.com/user-attachments/assets/805a97c7-b644-4400-9c5e-40916cf12531" />
-
----
-
-### 4. Searched the `DeviceNetworkEvents` Table for TOR Network Connections
-
-Searched for any indication the TOR browser was used to establish a connection using any of the known TOR ports. At `2025-10-04T19:21:06.6841946Z`, an employee on the "irene-test-vm-m" device successfully established a connection to the remote IP address `51.159.186.85` on port `9001`. The connection was initiated by the process `tor.exe`, located in the folder `c:\users\labuser\desktop\tor browser\browser\torbrowser\tor\tor.exe`. There were a couple of other connections to sites over port `443`.
-
-**Query used to locate events:**
-
-```kql
-DeviceNetworkEvents
-| where DeviceName == "irene-test-vm-m"
-| where InitiatingProcessAccountName != "system"
-| where InitiatingProcessFileName in ("tor.exe", "firefox.exe")
-| where RemotePort in ("9001", "9030", "9040", "9050", "9051", "9150", "80", "443")
-| project Timestamp, DeviceName, InitiatingProcessAccountName, ActionType, RemoteIP, RemotePort, RemoteUrl, InitiatingProcessFileName, InitiatingProcessFolderPath
-| order by Timestamp desc
-```
-<img width="3717" height="1465" alt="TOR4" src="https://github.com/user-attachments/assets/2ceeb167-9115-46c7-8b36-26e41da42f92" />
 
 ---
 
