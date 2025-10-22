@@ -1,4 +1,4 @@
-# Threat Hunt Report: Unauthorized TOR Usage
+# Threat Hunt Report: Unauthorized Port Scanning Incident
 
 <img width="1028" height="684" alt="port_scanning_IIId_bordered" src="https://github.com/user-attachments/assets/3c1a2369-fa68-49aa-b761-b00dc242677b" />
 
