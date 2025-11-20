@@ -28,7 +28,7 @@ DeviceNetworkEvents
 | summarize ConnectionCount = count() by DeviceName, ActionType, LocalIP
 | order by ConnectionCount
 ```
-<img width="1587" height="354" alt="S2QR1" src="https://github.com/user-attachments/assets/a468408a-deac-4764-ad14-18b51f5a6ddd" />
+<img width="2845" height="627" alt="S2QR1v4" src="https://github.com/user-attachments/assets/0a5059bd-9582-436e-8bf9-881b1aed00cb" />
 
 ---
 
