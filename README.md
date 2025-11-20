@@ -73,7 +73,7 @@ DeviceProcessEvents
 
 Logged into the suspect computer and observed the PowerShell script that was used to conduct the port scan. Excerpt of script can be found below.
 
-<img width="2623" height="1288" alt="PS_script_S2v3" src="https://github.com/user-attachments/assets/1a9c066f-0c32-41fd-a7ba-0a96fba17a4e" />
+<img width="2052" height="962" alt="PS_script_S2v4_bordered" src="https://github.com/user-attachments/assets/c4c66356-154b-4e0f-9e7d-ef824d270675" />
 
 ---
 
