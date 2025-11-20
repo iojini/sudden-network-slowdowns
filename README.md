@@ -71,7 +71,7 @@ DeviceProcessEvents
 
 ### 4. Located Port Scan Script on Device
 
-Logged into the suspect computer and observed the PowerShell script that was used to conduct the port scan. Excerpt of script can be found below.
+Logged into the suspect computer and observed the PowerShell script that was used to conduct the port scan. An excerpt of script can be found below.
 
 <img width="2052" height="962" alt="PS_script_S2v4_bordered" src="https://github.com/user-attachments/assets/c4c66356-154b-4e0f-9e7d-ef824d270675" />
 
