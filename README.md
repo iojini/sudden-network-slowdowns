@@ -71,12 +71,12 @@ DeviceProcessEvents
 
 ## Summary
 
-The user "labuser" on the "irene-test-vm-m" device initiated and completed the installation of the TOR browser. They proceeded to launch the browser, establish connections within the TOR network, and created various files related to TOR on their desktop, including a file named `tor-shopping-list.txt`. This sequence of activities indicates that the user actively installed, configured, and used the TOR browser, likely for anonymous browsing purposes, with possible documentation in the form of the "shopping list" file.
+The user "labuser" on the "irene-test-vm-m" device (10.1.0.242) initiated and executed a PowerShell script named portscan.ps1 located in C:\programdata. The script was launched with execution policy bypass at 2025-10-01T20:03:16.627Z, bypassing standard security controls. The device then generated a high volume of failed connection requests against multiple hosts on the local network, scanning ports sequentially (21, 22, 23, 25, 53, 69, 80, 110, 123, etc). This sequence of activities indicates that the user actively deployed and executed a port scanning tool to perform reconnaissance against other hosts on the 10.0.0.0/16 network, likely to identify open services and potential vulnerabilities.
 
 ---
 
 ## Response Taken
 
-TOR usage was confirmed on the endpoint `irene-test-vm-m` by the user `labuser`. The device was isolated, and the user's direct manager was notified.
+Unauthorized port scanning activity was confirmed on the endpoint "irene-test-vm-m" originating from a PowerShell script executed by the SYSTEM account (excerpt below). This behavior was not expected and was not configured by administrators. The device was isolated, and a malware scan was performed with no findings. As a precaution, the device remains isolated and a ticket has been submitted to have it reimaged.
 
 ---
