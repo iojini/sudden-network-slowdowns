@@ -69,6 +69,14 @@ DeviceProcessEvents
 
 ---
 
+### 4. Located Port Scan Script on Device
+
+Logged into the suspect computer and observed the PowerShell script that was used to conduct the port scan. Excerpt of script can be found below.
+
+<img width="2623" height="1288" alt="PS_script_S2v3" src="https://github.com/user-attachments/assets/1a9c066f-0c32-41fd-a7ba-0a96fba17a4e" />
+
+---
+
 ## Summary
 
 The user "labuser" on the "irene-test-vm-m" device (10.1.0.242) initiated and executed a PowerShell script named portscan.ps1 located in C:\programdata. The script was launched with execution policy bypass at 2025-10-01T20:03:16.627Z, bypassing standard security controls. The device then generated a high volume of failed connection requests against multiple hosts on the local network, scanning ports sequentially (21, 22, 23, 25, 53, 69, 80, 110, 123, etc). This sequence of activities indicates that the user actively deployed and executed a port scanning tool to perform reconnaissance against other hosts on the 10.0.0.0/16 network, likely to identify open services and potential vulnerabilities.
@@ -78,7 +86,5 @@ The user "labuser" on the "irene-test-vm-m" device (10.1.0.242) initiated and ex
 ## Response Taken
 
 Unauthorized port scanning activity was confirmed on the endpoint "irene-test-vm-m" originating from a PowerShell script executed by the SYSTEM account (excerpt below). This behavior was not expected and was not configured by administrators. The device was isolated, and a malware scan was performed with no findings. As a precaution, the device remains isolated and a ticket has been submitted to have it reimaged.
-
-<img width="2623" height="1288" alt="PS_script_S2v3" src="https://github.com/user-attachments/assets/1a9c066f-0c32-41fd-a7ba-0a96fba17a4e" />
 
 ---
