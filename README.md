@@ -16,7 +16,7 @@ The server team noticed a significant network performance degradation on some of
 
 ## Steps Taken
 
-### 1. Searched the `DeviceNetworkEvents` Table
+### 1. Searched the `DeviceNetworkEvents` Table for Failed Connection Requests
 
 Searched for excessive failed connections requests from devices on the network and discovered that the user "irene-test-vm-mde" failed several connection requests against itself (it's own IP address) and another host on the same network.
 
@@ -29,7 +29,6 @@ DeviceNetworkEvents
 | order by ConnectionCount
 ```
 <img width="2845" height="627" alt="S2QR1v4" src="https://github.com/user-attachments/assets/19c6f7a2-3b42-44da-ac52-d48b10c8ceed" />
-
 
 ---
 
