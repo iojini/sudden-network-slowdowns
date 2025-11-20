@@ -18,20 +18,17 @@ The server team noticed a significant network performance degradation on some of
 
 ### 1. Searched the `DeviceNetworkEvents` Table
 
-Searched for any file that had the string "tor" in it and discovered what looks like the user "labuser" downloaded a TOR installer, did something that resulted in many TOR-related files being copied to the desktop, and the creation of a file called `tor-shopping-list.txt` on the desktop at `2025-10-04T19:49:26.090506Z`. These events began at `2025-10-04T19:16:45.455884Z`.
+Searched for excessive failed connections requests from devices on the network and discovered that the user "irene-test-vm-mde" failed several connection requests against itself (it's own IP address) and another host on the same network.
 
 **Query used to locate events:**
 
 ```kql
-DeviceFileEvents
-| where DeviceName == "irene-test-vm-m"
-| where InitiatingProcessAccountName == "labuser"
-| where FileName contains "tor"
-| where Timestamp >= datetime(2025-10-04T19:16:45.455884Z)
-| order by Timestamp desc
-| project Timestamp, DeviceName, ActionType, FileName, FolderPath, SHA256, Account = InitiatingProcessAccountName
+DeviceNetworkEvents
+| where ActionType == "ConnectionFailed"
+| summarize ConnectionCount = count() by DeviceName, ActionType, LocalIP
+| order by ConnectionCount
 ```
-<img width="2846" height="1271" alt="TOR1" src="https://github.com/user-attachments/assets/a3653f41-84cf-4409-896f-77f46f9e5b66" />
+<img width="1896" height="438" alt="S2QR1v3" src="https://github.com/user-attachments/assets/e8bb06e7-aa34-4b70-9ad7-007e7f6a98f0" />
 
 ---
 
