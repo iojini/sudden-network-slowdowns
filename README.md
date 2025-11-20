@@ -9,7 +9,7 @@ The server team noticed a significant network performance degradation on some of
 
 ## Platforms and Languages Leveraged
 - Windows 10 Virtual Machines (Microsoft Azure)
-- EDR Platform: Microsoft Defender for Endpoint
+- Log Repository: Azure Log Analytics
 - Kusto Query Language (KQL)
 
 ---
@@ -28,44 +28,48 @@ DeviceNetworkEvents
 | summarize ConnectionCount = count() by DeviceName, ActionType, LocalIP
 | order by ConnectionCount
 ```
-<img width="2845" height="627" alt="S2QR1v4" src="https://github.com/user-attachments/assets/19c6f7a2-3b42-44da-ac52-d48b10c8ceed" />
+<img width="2009" height="422" alt="S2R2QR1" src="https://github.com/user-attachments/assets/80ac7488-76b3-4852-978d-52f1742ecc8a" />
 
 ---
 
-### 2. Searched the `DeviceNetworkEvents` Table
+### 2. Searched the `DeviceNetworkEvents` Table for Total Failed Connections
 
-Searched for any `ProcessCommandLine` that contained the string "tor-browser-windows-x86_64-portable-14.5.7.exe". Based on the logs returned, at `2025-10-04T19:16:45.455884Z`, an employee on the "irene-test-vm-m" device ran the file `tor-browser-windows-x86_64-portable-14.5.7.exe` from their Downloads folder, using a command that triggered a silent installation.
+After observing failed connection requests from a suspected host (10.1.0.242), it was clear a port scan was taken place due to the sequential order of the ports. There were several port scans being conducted.
 
 **Query used to locate event:**
 
 ```kql
-DeviceProcessEvents
-| where DeviceName == "irene-test-vm-m"
-| where ProcessCommandLine contains "tor-browser-windows-x86_64-portable-14.5.7.exe"
-| project Timestamp, DeviceName, AccountName, ActionType, FileName, FolderPath, ProcessCommandLine
+let IPInQuestion = "10.1.0.242";
+DeviceNetworkEvents
+| where ActionType == "ConnectionFailed"
+| where LocalIP == IPInQuestion
+| order by TimeGenerated asc
 ```
-<img width="3117" height="398" alt="TOR2" src="https://github.com/user-attachments/assets/94bcf1aa-dc1f-4ccc-89b7-57035c52d433" />
+<img width="2049" height="786" alt="S2R2QR2" src="https://github.com/user-attachments/assets/971a3df8-0994-4eb8-8cb5-16eb6a841b57" />
 
 ---
 
-### 3. Searched the `DeviceProcessEvents` Table for TOR Browser Execution
+### 3. Searched the `DeviceProcessEvents` Table for Port Scan Source
 
-Searched for any indication that user "labuser" actually opened the TOR browser. There was evidence that they did open it at `2025-10-04T19:20:39.986612Z`. There were several other instances of `firefox.exe` (TOR) as well as `tor.exe` spawned afterwards.
+Searched for suspicious events occurring around the time the port scan started and noticed that a PowerShell script named portscan.ps1 launched at 2025-10-01T20:03:16.6270327Z.
 
 **Query used to locate events:**
 
 ```kql
+let VMName = "irene-test-vm-m";
+let specificTime = datetime(2025-10-01T20:03:36.2217304Z);
 DeviceProcessEvents
-| where DeviceName == "irene-test-vm-m"
-| where FileName has_any ("tor.exe", "firefox.exe", "tor-browser.exe")
-| project Timestamp, DeviceName, AccountName, ActionType, FileName, FolderPath, ProcessCommandLine
-| order by Timestamp desc
+| where TimeGenerated  between ((specificTime - 10m) .. (specificTime + 10m))
+| where DeviceName == VMName
+| order by TimeGenerated desc
+| project TimeGenerated, FileName, InitiatingProcessCommandLine
+
 ```
-<img width="3154" height="1534" alt="TOR3" src="https://github.com/user-attachments/assets/805a97c7-b644-4400-9c5e-40916cf12531" />
+<img width="2267" height="917" alt="S2R2QR3" src="https://github.com/user-attachments/assets/8cf064b1-40ba-494a-bafc-ef13a627e2b7" />
 
 ---
 
-## Summary
+## Summary and Response Taken
 
 The user "labuser" on the "irene-test-vm-m" device initiated and completed the installation of the TOR browser. They proceeded to launch the browser, establish connections within the TOR network, and created various files related to TOR on their desktop, including a file named `tor-shopping-list.txt`. This sequence of activities indicates that the user actively installed, configured, and used the TOR browser, likely for anonymous browsing purposes, with possible documentation in the form of the "shopping list" file.
 
