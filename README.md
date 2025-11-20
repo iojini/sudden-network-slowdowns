@@ -79,4 +79,6 @@ The user "labuser" on the "irene-test-vm-m" device (10.1.0.242) initiated and ex
 
 Unauthorized port scanning activity was confirmed on the endpoint "irene-test-vm-m" originating from a PowerShell script executed by the SYSTEM account (excerpt below). This behavior was not expected and was not configured by administrators. The device was isolated, and a malware scan was performed with no findings. As a precaution, the device remains isolated and a ticket has been submitted to have it reimaged.
 
+<img width="2623" height="1288" alt="PS_script_S2v3" src="https://github.com/user-attachments/assets/1a9c066f-0c32-41fd-a7ba-0a96fba17a4e" />
+
 ---
