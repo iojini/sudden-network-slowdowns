@@ -92,7 +92,7 @@ Unauthorized port scanning activity was confirmed on the endpoint "irene-test-vm
 ## Relevant MITRE ATT&CK TTPs
 
 | Tactic | TTP Name | TTP ID | Description | Detection Relevance |
-|--------|----------|--------|-------------|---------------------|
+|--------|----------|:--------:|-------------|---------------------|
 | Discovery | Network Service Discovery | T1046 | A PowerShell script (portscan.ps1) was executed to scan multiple hosts on the 10.0.0.0/16 network, probing common ports sequentially (21, 22, 23, 25, 53, 69, 80, 110, 123, etc.). | Identifies reconnaissance activity through failed connection attempts logged in DeviceNetworkEvents table. |
 | Execution | Command and Scripting Interpreter: PowerShell | T1059.001 | The port scan was conducted via a PowerShell script launched with execution policy bypass (-ExecutionPolicy Bypass). | Identifies suspicious PowerShell execution through DeviceProcessEvents table, including command line arguments. |
 | Defense Evasion | Masquerading | T1036 | The script was placed in C:\ProgramData\, a common location used to blend in with legitimate software, and logged to "entropygorilla.log" to obscure its purpose. | Identifies potentially malicious files stored in commonly abused directories. |
