@@ -85,21 +85,20 @@ The user "labuser" on the "irene-test-vm-m" device (10.1.0.242) initiated and ex
 
 ## Response Taken
 
-Unauthorized port scanning activity was confirmed on the endpoint "irene-test-vm-m" originating from a PowerShell script executed by the SYSTEM account (excerpt below). This behavior was not expected and was not configured by administrators. The device was isolated, and a malware scan was performed with no findings. As a precaution, the device remains isolated and a ticket has been submitted to have it reimaged.
+Unauthorized port scanning activity was confirmed on the endpoint "irene-test-vm-m" originating from a PowerShell script executed by the user "labuser". This behavior was not expected and was not configured by administrators. The device was isolated, and a malware scan was performed with no findings. As a precaution, the device remains isolated and a ticket has been submitted to have it reimaged.
 
 ---
 
 ## Relevant MITRE ATT&CK TTPs
 
-| TTP ID | TTP Name | Description | Detection Relevance |
-|--------|----------|-------------|---------------------|
-| T1046 | Network Service Discovery | A PowerShell script (portscan.ps1) was executed to scan multiple hosts on the 10.0.0.0/16 network, probing common ports sequentially (21, 22, 23, 25, 53, 69, 80, 110, 123, etc.). | Identifies reconnaissance activity through failed connection attempts logged in DeviceNetworkEvents table. |
-| T1059.001 | Command and Scripting Interpreter: PowerShell | The port scan was conducted via a PowerShell script launched with execution policy bypass (-ExecutionPolicy Bypass). | Identifies suspicious PowerShell execution through DeviceProcessEvents table, including command line arguments. |
-| T1036 | Masquerading | The script was placed in C:\ProgramData, a common location used to blend in with legitimate software, and logged to "entropygorilla.log" to obscure its purpose. | Identifies potentially malicious files stored in commonly abused directories. |
-| T1078 | Valid Accounts | The script was executed by the SYSTEM account, indicating potential privilege escalation or persistence mechanism. | Identifies unexpected use of high-privilege accounts for unauthorized activities. |
+| Tactic | TTP ID | TTP Name | Description | Detection Relevance |
+|--------|--------|----------|-------------|---------------------|
+| Discovery | T1046 | Network Service Discovery | A PowerShell script (portscan.ps1) was executed to scan multiple hosts on the 10.0.0.0/16 network, probing common ports sequentially (21, 22, 23, 25, 53, 69, 80, 110, 123, etc.). | Identifies reconnaissance activity through failed connection attempts logged in DeviceNetworkEvents table. |
+| Execution | T1059.001 | Command and Scripting Interpreter: PowerShell | The port scan was conducted via a PowerShell script launched with execution policy bypass (-ExecutionPolicy Bypass). | Identifies suspicious PowerShell execution through DeviceProcessEvents table, including command line arguments. |
+| Defense Evasion | T1036 | Masquerading | The script was placed in C:\ProgramData\, a common location used to blend in with legitimate software, and logged to "entropygorilla.log" to obscure its purpose. | Identifies potentially malicious files stored in commonly abused directories. |
 
 ---
 
-This table organizes the MITRE ATT&CK techniques (TTPs) observed during the investigation. The detection methods identified internal reconnaissance activity (port scanning from an endpoint) and confirmed unauthorized use of PowerShell scripts executed under the SYSTEM account.
+This table organizes the MITRE ATT&CK techniques (TTPs) observed during the investigation. The detection methods identified internal reconnaissance activity (port scanning from an endpoint) and confirmed unauthorized use of PowerShell scripts executed by the user "labuser".
 
 ---
